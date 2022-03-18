@@ -1,6 +1,6 @@
 import React from "react";
 
-function UserList({ users, onRemove }){
+function UserList({ users, onRemove, onToggle }){
     return(
         <div>
             <table className="border">
@@ -14,7 +14,12 @@ function UserList({ users, onRemove }){
                     {users.map((users, index)=>(
                         <tr>
                             <td>{users.id}</td>
-                            <td>{users.username}</td>
+                            <td onClick={()=>onToggle(users.id)} style={{
+                                cursor : 'pointer',
+                                color: users.active ? 'green': 'black'
+                            }}>
+                                {users.username}
+                            </td>
                             <td>{users.email}</td>
                             <td><button onClick={() => onRemove(users.id) }>삭제</button></td>
                         </tr>
