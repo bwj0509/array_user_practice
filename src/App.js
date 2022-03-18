@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import UserList from './component/UserList';
 import CreateUser from './component/CreateUser';
 
@@ -77,11 +77,20 @@ function App() {
     
   }
   
+  function countActiveUsers(users){
+    console.log('활성 사용자 수를 세는중...')
+    return users.filter((user) => user.active).length
+  }
+  const count = useMemo(() => countActiveUsers(users),[users])
+  //useMemo사용하여 성능 최적화 시키기!
+  // userMemo를 선언하고 두번째 파라미터는 배열로 사용하고 변화하게 되면 첫번째 파라미터를 실행시키는 의미
+  // 따라서 배열에 정해진 값만 체크해서 재랜더링 시키기에 성능 최적화가 가능하다.
+
   return (
    <>
     <CreateUser username={username} email={email} onChange={onChange} onCreate={onCreate}/>
     <UserList users={users} onRemove={onRemove} onToggle={onToggle}/>
-    {console.log(users)}
+    <div>활성 사용자수 : {count}</div>
    </>
 
   );

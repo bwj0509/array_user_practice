@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 function UserList({ users, onRemove, onToggle }){
+
+    // useEffect( () => {
+    //     console.log('user값이 설정됨');
+    //     console.log(users);
+
+    //     return () => { /*useEffect를 사용할때 return은 cleanup의 개념을 가진다*/ 
+    //         console.log('user가 바뀌기전..');
+    //         console.log(users);
+    //     }
+    // },[users])
+
     return(
         <div>
             <table className="border">
@@ -12,7 +23,7 @@ function UserList({ users, onRemove, onToggle }){
                     
                 </tr>
                     {users.map((users, index)=>(
-                        <tr>
+                        <tr key={index}>
                             <td>{users.id}</td>
                             <td onClick={()=>onToggle(users.id)} style={{
                                 cursor : 'pointer',
